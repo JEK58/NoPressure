@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import CurrentTime from "./components/currentTime";
 
 const REFRESH_INTERVAL_LIVE = 5 * 1000;
 
@@ -34,7 +35,9 @@ function App() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-4xl font-bold mb-2">10.</h1>
-      <h2 className="text-lg text-gray-500">10km</h2>
+      <h2 className="text-lg text-gray-500">
+        <CurrentTime />
+      </h2>
     </div>
   );
 }
