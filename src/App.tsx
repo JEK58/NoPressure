@@ -1,77 +1,80 @@
 import { useEffect, useState } from "react";
-import CurrentTime from "./components/currentTime";
 
 const REFRESH_INTERVAL_LIVE = 5 * 1000;
 
 function App() {
-  const [data, setData] = useState();
+  const [rank, setRank] = useState<number | string>();
 
   const fetchLiveData = async () => {
     const group = 5387;
-    const url = `https://corsproxy.io/?https://lt.flymaster.net/json/GROUPS/${group}/${getRoundedTimestamp()}/rnk${getRoundedTimestampMinute()}.json`;
-
-    console.log("🚀 ~ url:", url);
+    const trackerSerial = 178081;
 
     try {
-      const res = await fetch(url, {});
-      const body = await res.json();
-      console.log("🚀 ~ body:", body);
-      setData(body);
+      const serverTime = await getFlymasterServerTime(5387);
+
+      const url = `https://corsproxy.io/?https://lt.flymaster.net/json/GROUPS/${group}/${roundTimeToHour(
+        serverTime
+      )}/rnk${roundTimeToMinute(serverTime)}.json`;
+
+      console.log("🚀 ~ url:", url);
+
+      const res = await fetch(url);
+      const data = await res.json();
+
+      setRank(getPilotRanking(trackerSerial, data));
     } catch (error) {
       console.log(error);
     }
   };
 
-  // useEffect(() => {
-  //   console.log("Fetching");
+  useEffect(() => {
+    console.log("Fetching");
 
-  //   fetchLiveData();
-  //   const fetchInterval = setInterval(fetchLiveData, REFRESH_INTERVAL_LIVE);
-  //   return () => {
-  //     clearInterval(fetchInterval);
-  //   };
-  // }, []);
+    fetchLiveData();
+    const fetchInterval = setInterval(fetchLiveData, REFRESH_INTERVAL_LIVE);
+    return () => {
+      clearInterval(fetchInterval);
+    };
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-4xl font-bold mb-2">10.</h1>
-      <h2 className="text-lg text-gray-500">
-        <CurrentTime />
-      </h2>
+      <h1 className="text-4xl font-bold mb-2">{rank}</h1>
+      {/* <h2 className="text-lg text-gray-500">.</h2> */}
     </div>
   );
 }
 
-function getRoundedTimestamp(): number {
-  const currentDate = new Date();
-  const targetYear = 1993;
-  const targetMinutes = [0, 10, 20, 30, 40, 50];
+async function getFlymasterServerTime(groupId: number) {
+  const res = await fetch(
+    `https://lb.flymaster.net/time.php?grp=${groupId}&_=${Date.now()}`
+  );
+  const data = await res.json();
 
-  currentDate.setFullYear(targetYear);
-  const currentMinutes = currentDate.getMinutes();
-  const roundedMinutes =
-    targetMinutes.find((minute) => minute <= currentMinutes) || 0;
-
-  currentDate.setMinutes(roundedMinutes);
-  currentDate.setSeconds(0);
-  currentDate.setMilliseconds(0);
-
-  const epochTimestamp = Math.floor(currentDate.getTime() / 1000);
-
-  return epochTimestamp;
+  return data.st as number;
 }
 
-function getRoundedTimestampMinute(): number {
-  const currentDate = new Date();
-  const targetYear = 1993;
+function roundTimeToHour(serverTime: number): number {
+  return 3600 * Math.floor(serverTime / 3600);
+}
 
-  currentDate.setFullYear(targetYear);
-  currentDate.setMilliseconds(0);
-  currentDate.setSeconds(0);
+function roundTimeToMinute(serverTime: number): number {
+  return 60 * Math.floor(serverTime / 60);
+}
 
-  const epochTimestamp = Math.floor(currentDate.getTime() / 1000);
+function getPilotRanking(serial: number, data: any) {
+  try {
+    // @ts-ignore
+    const pilotData = data.aaData.find((el) => el[0] == serial);
 
-  return epochTimestamp;
+    if (!pilotData) return "?";
+    const rank = pilotData[1] as number;
+    return rank;
+  } catch (error) {
+    console.log(error);
+
+    return "?";
+  }
 }
 
 export default App;
