@@ -19,7 +19,7 @@ function App() {
         serverTime
       )}/rnk${roundTimeToMinute(serverTime)}.json`;
 
-      console.log("🚀 ~ url:", url);
+      // console.log("🚀 ~ url:", url);
 
       const res = await fetch(url);
       const data = await res.json();
