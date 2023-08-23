@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const REFRESH_INTERVAL_LIVE = 5 * 1000;
 
 function App() {
   const [rank, setRank] = useState<number | string>();
+  const { group, tracker } = useParams();
 
   const fetchLiveData = async () => {
-    const group = 5387;
-    const trackerSerial = 178081;
+    // const group = 2172;
+    // const trackerSerial = 483147;
+    const trackerSerial = parseInt(tracker ?? "0");
 
     try {
       const serverTime = await getFlymasterServerTime(5387);
