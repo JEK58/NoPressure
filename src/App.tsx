@@ -12,7 +12,7 @@ function App() {
   const fetchLiveData = async () => {
     const trackerSerial = parseInt(tracker ?? "0");
 
-    if (group === "pwc") {
+    if (group == "pwc") {
       // PWC Live ranking
       try {
         const liveResultUrl = await getPwcLiveResultsUrl();
@@ -44,7 +44,7 @@ function App() {
     } else {
       try {
         // Flymaster live ranking
-        const serverTime = await getFlymasterServerTime(5387);
+        const serverTime = await getFlymasterServerTime(group);
 
         const url = `https://corsproxy.io/?https://lt.flymaster.net/json/GROUPS/${group}/${roundTimeToHour(
           serverTime
@@ -78,9 +78,9 @@ function App() {
   );
 }
 
-async function getFlymasterServerTime(groupId: number) {
+async function getFlymasterServerTime(groupId?: string) {
   const res = await fetch(
-    `https://lb.flymaster.net/time.php?grp=${groupId}&_=${Date.now()}`
+    `https://corsproxy.io/?https://lb.flymaster.net/time.php?grp=${groupId}&_=${Date.now()}`
   );
   const data = await res.json();
 
