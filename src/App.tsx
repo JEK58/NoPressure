@@ -1,32 +1,62 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import * as cheerio from "cheerio";
 
 const REFRESH_INTERVAL_LIVE = 5 * 1000;
 
 function App() {
   const [rank, setRank] = useState<number | string>();
+  const [points, setPoints] = useState<number | string>();
   const { group, tracker } = useParams();
 
   const fetchLiveData = async () => {
-    // const group = 2172;
-    // const trackerSerial = 483147;
     const trackerSerial = parseInt(tracker ?? "0");
 
-    try {
-      const serverTime = await getFlymasterServerTime(5387);
+    if (group === "pwc") {
+      // PWC Live ranking
+      try {
+        const liveResultUrl = await getPwcLiveResultsUrl();
 
-      const url = `https://corsproxy.io/?https://lt.flymaster.net/json/GROUPS/${group}/${roundTimeToHour(
-        serverTime
-      )}/rnk${roundTimeToMinute(serverTime)}.json`;
+        if (!liveResultUrl) return;
+        const url = `https://corsproxy.io/?${liveResultUrl}`;
 
-      // console.log("🚀 ~ url:", url);
+        const response = await fetch(url);
+        const html = await response.text();
+        const $ = cheerio.load(html);
 
-      const res = await fetch(url);
-      const data = await res.json();
+        const table = $("table.result").eq(1);
+        const tableRows = table.find("tr");
 
-      setRank(getPilotRanking(trackerSerial, data));
-    } catch (error) {
-      console.log(error);
+        const data = tableRows.filter((_, el) => {
+          const secondTdContent = $(el).find("td:nth-child(2)").text();
+
+          return secondTdContent.trim() === trackerSerial.toString();
+        });
+
+        const position = $(data).find("td:nth-child(1)").text();
+        const rank = $(data).find("td:nth-child(19)").text();
+
+        setPoints(rank);
+        setRank(position);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    } else {
+      try {
+        // Flymaster live ranking
+        const serverTime = await getFlymasterServerTime(5387);
+
+        const url = `https://corsproxy.io/?https://lt.flymaster.net/json/GROUPS/${group}/${roundTimeToHour(
+          serverTime
+        )}/rnk${roundTimeToMinute(serverTime)}.json`;
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        setRank(getPilotRanking(trackerSerial, data));
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -42,8 +72,8 @@ function App() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-4xl font-bold mb-2">{rank}</h1>
-      {/* <h2 className="text-lg text-gray-500">.</h2> */}
+      <h1 className="text-4xl font-bold mb-0">{rank}</h1>
+      {points && <h2 className="text-lg text-gray-700">{points}</h2>}
     </div>
   );
 }
@@ -78,6 +108,18 @@ function getPilotRanking(serial: number, data: any) {
 
     return "?";
   }
+}
+
+async function getPwcLiveResultsUrl() {
+  const resultUrl = "https://pwca.events/pwca-live-results/";
+  const res = await fetch(`https://corsproxy.io/?${resultUrl}`);
+  const content = await res.text();
+  const $ = cheerio.load(content);
+
+  const iframe = $('iframe[name="livescores"]');
+  const src = iframe.attr("src");
+
+  return src;
 }
 
 export default App;
