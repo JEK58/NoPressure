@@ -49,6 +49,7 @@ function App() {
           .find(`td:nth-child(${indexOfTotalPointsHeader + 1})`)
           .text();
 
+
         setPoints(rank);
         setRank(position);
       } catch (error) {
