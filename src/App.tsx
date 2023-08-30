@@ -34,7 +34,7 @@ function App() {
         });
 
         const position = $(data).find("td:nth-child(1)").text();
-        const rank = $(data).find("td:nth-child(19)").text();
+        const rank = $(data).find("td:nth-child(20)").text();
 
         setPoints(rank);
         setRank(position);
