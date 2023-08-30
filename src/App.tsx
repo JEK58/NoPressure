@@ -25,16 +25,29 @@ function App() {
         const $ = cheerio.load(html);
 
         const table = $("table.result").eq(1);
+
+        const tablehead = table.find("th");
         const tableRows = table.find("tr");
+
+        let indexOfTotalPointsHeader = -1;
+
+        tablehead.each((index, element) => {
+          const headerContent = $(element).text();
+          if (headerContent.trim().toLowerCase() === "totalpoints") {
+            indexOfTotalPointsHeader = index;
+            return false;
+          }
+        });
 
         const data = tableRows.filter((_, el) => {
           const secondTdContent = $(el).find("td:nth-child(2)").text();
-
           return secondTdContent.trim() === trackerSerial.toString();
         });
 
         const position = $(data).find("td:nth-child(1)").text();
-        const rank = $(data).find("td:nth-child(19)").text();
+        const rank = $(data)
+          .find(`td:nth-child(${indexOfTotalPointsHeader + 1})`)
+          .text();
 
         setPoints(rank);
         setRank(position);
