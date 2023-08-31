@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import * as cheerio from "cheerio";
 
 const REFRESH_INTERVAL_LIVE = 5 * 1000;
 
@@ -14,6 +13,20 @@ function App() {
 
     if (group == "pwc") {
       // PWC Live ranking
+      const cheerio = await import("cheerio");
+
+      async function getPwcLiveResultsUrl() {
+        const resultUrl = "https://pwca.events/pwca-live-results/";
+        const res = await fetch(`https://corsproxy.io/?${resultUrl}`);
+        const content = await res.text();
+        const $ = cheerio.load(content);
+
+        const iframe = $('iframe[name="livescores"]');
+        const src = iframe.attr("src");
+
+        return src;
+      }
+
       try {
         const liveResultUrl = await getPwcLiveResultsUrl();
 
@@ -48,7 +61,6 @@ function App() {
         const rank = $(data)
           .find(`td:nth-child(${indexOfTotalPointsHeader + 1})`)
           .text();
-
 
         setPoints(rank);
         setRank(position);
@@ -122,18 +134,6 @@ function getPilotRanking(serial: number, data: any) {
 
     return "?";
   }
-}
-
-async function getPwcLiveResultsUrl() {
-  const resultUrl = "https://pwca.events/pwca-live-results/";
-  const res = await fetch(`https://corsproxy.io/?${resultUrl}`);
-  const content = await res.text();
-  const $ = cheerio.load(content);
-
-  const iframe = $('iframe[name="livescores"]');
-  const src = iframe.attr("src");
-
-  return src;
 }
 
 export default App;
