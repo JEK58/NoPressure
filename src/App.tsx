@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 const REFRESH_INTERVAL_LIVE = 5 * 1000;
 
-function App() {
+function App({ blindmode = false }) {
   const [rank, setRank] = useState<number | string>();
   const [points, setPoints] = useState<number | string>();
   const { group, tracker } = useParams();
@@ -96,10 +96,16 @@ function App() {
     };
   }, []);
 
+  const h1Size = blindmode ? "text-7xl" : "text-4xl";
+  const h1Class = `${h1Size} font-bold mb-0`;
+
+  const h2size = blindmode ? "text-2xl" : "text-lg";
+  const h2Class = `${h2size} text-gray-700`;
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-4xl font-bold mb-0">{rank}</h1>
-      {points && <h2 className="text-lg text-gray-700">{points}</h2>}
+      <h1 className={h1Class}>{rank}</h1>
+      {points && <h2 className={h2Class}>{points}</h2>}
     </div>
   );
 }
