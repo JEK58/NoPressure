@@ -6,7 +6,7 @@ const REFRESH_INTERVAL_LIVE = 5 * 1000;
 
 function App({ blindmode = false }) {
   const [rank, setRank] = useState<number | string>();
-  const [points, setPoints] = useState<number | string>();
+  const [points, setPoints] = useState<number | string>("?");
   const { group, tracker } = useParams();
 
   const fetchLiveData = async () => {
