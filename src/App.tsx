@@ -141,7 +141,7 @@ function App({ blindmode = false }) {
   const h2Class = `${h2size} text-gray-700`;
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen bg-black">
       <h1 className={h1Class}>{rank}</h1>
       {points && <h2 className={h2Class}>{points}</h2>}
     </div>
