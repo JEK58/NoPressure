@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { jsonrepair } from "jsonrepair";
 
 const REFRESH_INTERVAL_LIVE = 5 * 1000;
 
@@ -11,61 +12,98 @@ function App({ blindmode = false }) {
   const fetchLiveData = async () => {
     const trackerSerial = parseInt(tracker ?? "0");
 
-    if (group == "pwc") {
-      // PWC Live ranking
-      const cheerio = await import("cheerio");
+    // if (group == "pwc") {
+    //   // PWC Live ranking
+    //   const cheerio = await import("cheerio");
 
-      async function getPwcLiveResultsUrl() {
-        const resultUrl = "https://pwca.events/pwca-live-results/";
-        const res = await fetch(`https://corsproxy.io/?${resultUrl}`);
-        const content = await res.text();
-        const $ = cheerio.load(content);
+    //   async function getPwcLiveResultsUrl() {
+    //     const resultUrl = "https://pwca.events/pwca-live-results/";
+    //     const res = await fetch(`https://corsproxy.io/?${resultUrl}`);
+    //     const content = await res.text();
+    //     const $ = cheerio.load(content);
 
-        const iframe = $('iframe[name="livescores"]');
-        const src = iframe.attr("src");
+    //     const iframe = $('iframe[name="livescores"]');
+    //     const src = iframe.attr("src");
 
-        return src;
-      }
+    //     return src;
+    //   }
+
+    //   try {
+    //     const liveResultUrl = await getPwcLiveResultsUrl();
+
+    //     if (!liveResultUrl) return;
+    //     const url = `https://corsproxy.io/?${liveResultUrl}`;
+
+    //     const response = await fetch(url);
+    //     const html = await response.text();
+    //     const $ = cheerio.load(html);
+
+    //     const table = $("table.result").eq(1);
+
+    //     const tablehead = table.find("th");
+    //     const tableRows = table.find("tr");
+
+    //     let indexOfTotalPointsHeader = -1;
+
+    //     tablehead.each((index, element) => {
+    //       const headerContent = $(element).text();
+    //       if (headerContent.trim().toLowerCase() === "totalpoints") {
+    //         indexOfTotalPointsHeader = index;
+    //         return false;
+    //       }
+    //     });
+
+    //     const data = tableRows.filter((_, el) => {
+    //       const secondTdContent = $(el).find("td:nth-child(2)").text();
+    //       return secondTdContent.trim() === trackerSerial.toString();
+    //     });
+
+    //     const position = $(data).find("td:nth-child(1)").text();
+    //     const rank = $(data)
+    //       .find(`td:nth-child(${indexOfTotalPointsHeader + 1})`)
+    //       .text();
+
+    //     setPoints(rank);
+    //     setRank(position);
+    //   } catch (error) {
+    //     console.error("Error:", error);
+    //   }
+    // }
+
+    if (group == "bpc") {
+      const AIRTRIBUNE_URL =
+        "https://corsproxy.io/?https://race.airtribune.com/";
+      // const COMP_ID = 2414;
+      const COMP_ID = 2428; // BPC2023
+
+      const LIVE_DATA_URL = AIRTRIBUNE_URL + COMP_ID + "/feed_live.json";
 
       try {
-        const liveResultUrl = await getPwcLiveResultsUrl();
-
-        if (!liveResultUrl) return;
-        const url = `https://corsproxy.io/?${liveResultUrl}`;
-
-        const response = await fetch(url);
-        const html = await response.text();
-        const $ = cheerio.load(html);
-
-        const table = $("table.result").eq(1);
-
-        const tablehead = table.find("th");
-        const tableRows = table.find("tr");
-
-        let indexOfTotalPointsHeader = -1;
-
-        tablehead.each((index, element) => {
-          const headerContent = $(element).text();
-          if (headerContent.trim().toLowerCase() === "totalpoints") {
-            indexOfTotalPointsHeader = index;
-            return false;
-          }
+        const res = await fetch(LIVE_DATA_URL + "?" + new Date().getTime(), {
+          cache: "no-store",
         });
 
-        const data = tableRows.filter((_, el) => {
-          const secondTdContent = $(el).find("td:nth-child(2)").text();
-          return secondTdContent.trim() === trackerSerial.toString();
+        // Repair JSON as it might be invalid and crash during parsing.
+        const string = await res.text();
+        const repairedJson = jsonrepair(string);
+        const data = JSON.parse(repairedJson) as unknown[];
+
+        const pilots = data.slice(3).filter((el) => {
+          // @ts-ignore
+          return el[0][2] == tracker?.padStart(4, "0");
         });
+        // @ts-ignore
+        const rank = pilots[0][0][1];
+        // @ts-ignore
+        const points = pilots[0][0][24];
 
-        const position = $(data).find("td:nth-child(1)").text();
-        const rank = $(data)
-          .find(`td:nth-child(${indexOfTotalPointsHeader + 1})`)
-          .text();
+        if (typeof rank != "number") throw new Error("Rank is not a number");
 
-        setPoints(rank);
-        setRank(position);
+        setRank(rank);
+        setPoints(points);
       } catch (error) {
-        console.error("Error:", error);
+        setRank("?");
+        console.log(error);
       }
     } else {
       try {

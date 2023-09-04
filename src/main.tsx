@@ -31,7 +31,7 @@ if (process.env.NODE_ENV == "development") {
 
 const router = createBrowserRouter([
   {
-    path: "/:group/:tracker/blindmode",
+    path: "/:group/:tracker/iamold",
     element: <App blindmode={true} />,
   },
   {
