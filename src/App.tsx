@@ -70,11 +70,11 @@ function App({ blindmode = false }) {
     //   }
     // }
 
-    if (group == "bpc") {
+    if (group == "srs") {
       const AIRTRIBUNE_URL =
         "https://corsproxy.io/?https://race.airtribune.com/";
       // const COMP_ID = 2414;
-      const COMP_ID = 2428; // BPC2023
+      const COMP_ID = 6873; // SRS BGD
 
       const LIVE_DATA_URL = AIRTRIBUNE_URL + COMP_ID + "/feed_live.json";
 
