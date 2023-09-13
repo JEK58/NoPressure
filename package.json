@@ -1,32 +1,43 @@
 {
-  "name": "flymaster-race-position",
+  "name": "pg-race-position",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "author": "Stephan Schöpe",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "next lint",
+    "start": "next start"
   },
   "dependencies": {
-    "@sentry/react": "^7.66.0",
-    "@types/node": "^20.5.9",
-    "cheerio": "^1.0.0-rc.12",
-    "jsonrepair": "^3.2.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.10.1",
-    "react-router-dom": "^6.15.0"
+    "@tanstack/react-query": "^4.20.2",
+    "@trpc/client": "^10.9.0",
+    "@trpc/next": "^10.9.0",
+    "@trpc/react-query": "^10.9.0",
+    "@trpc/server": "^10.9.0",
+    "next": "^13.2.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "superjson": "1.9.1",
+    "zod": "^3.20.6"
   },
   "devDependencies": {
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react": "^4.0.4",
-    "autoprefixer": "^10.4.15",
-    "postcss": "^8.4.29",
-    "tailwindcss": "^3.3.3",
-    "typescript": "^5.2.2",
-    "vite": "^4.4.9"
+    "@types/eslint": "^8.21.1",
+    "@types/node": "^18.14.0",
+    "@types/prettier": "^2.7.2",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "autoprefixer": "^10.4.7",
+    "eslint": "^8.34.0",
+    "eslint-config-next": "^13.2.1",
+    "postcss": "^8.4.14",
+    "prettier": "^2.8.1",
+    "prettier-plugin-tailwindcss": "^0.2.1",
+    "tailwindcss": "^3.2.0",
+    "typescript": "^4.9.5"
+  },
+  "ct3aMetadata": {
+    "initVersion": "7.7.0"
   }
 }
