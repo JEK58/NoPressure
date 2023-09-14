@@ -68,7 +68,7 @@ const FlyeventGroups: NextPage = () => {
       </select>
       {/* Select pilot */}
 
-      {selectedComp && (
+      {selectedComp && pilots.isFetched && (
         <>
           <h3 className="mt-2 text-lg font-semibold">Pilot</h3>
           <select
