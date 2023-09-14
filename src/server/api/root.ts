@@ -1,6 +1,7 @@
 import { createTRPCRouter } from "@/server/api/trpc";
-import { compRouter } from "@/server/api/routers/comps";
 import { flymasterRouter } from "@/server/api/routers/flymaster";
+import { flyeventRouter } from "@/server/api/routers/flyevent";
+import { pwcRouter } from "./routers/pwc";
 
 /**
  * This is the primary router for your server.
@@ -8,8 +9,9 @@ import { flymasterRouter } from "@/server/api/routers/flymaster";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  comps: compRouter,
   flymaster: flymasterRouter,
+  flyevent: flyeventRouter,
+  pwc: pwcRouter,
 });
 
 // export type definition of API
