@@ -67,10 +67,10 @@ const FlyeventGroups: NextPage = () => {
         {listComps}
       </select>
       {/* Select pilot */}
-      <h3 className="mt-2 text-lg font-semibold">Pilot</h3>
 
       {selectedComp && (
         <>
+          <h3 className="mt-2 text-lg font-semibold">Pilot</h3>
           <select
             className="select focus:ring-primary mt-2 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white text-left text-slate-600  shadow-sm ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2"
             onChange={handleSelectPilot}
