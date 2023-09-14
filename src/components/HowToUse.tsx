@@ -3,9 +3,9 @@ const HowToUse = () => {
     <div className="mt-2 max-w-3xl rounded-xl bg-white/10 p-4 text-white">
       <h3 className="text-lg font-semibold">How to Use</h3>
       <p className="mt-2 text-gray-300">
-        Pick a platform, comp and pilot and copy the generated URL. Look for the
-        &quot;website widget&quot; in XCTrack or Alfapilot (at the bottom of the
-        list) and paste the URL. <br />
+        Pick a platform, comp and pilot and copy the generated URL. In XCTrack
+        or Alfapilot look for the &quot;website widget&quot; (at the bottom of
+        the list) and paste the URL. <br />
         Flyevent or PWC comps will also appear in the Flymaster groups but
         without respecting leading points and no live score. So only use the
         flymaster group if it&apos;s not available on the other platforms.
