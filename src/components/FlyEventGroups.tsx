@@ -1,9 +1,8 @@
-import { type NextPage } from "next";
 import { api } from "@/utils/api";
 import { useState } from "react";
 import WidgetURL from "./WidgetURL";
 
-const FlyeventGroups: NextPage = () => {
+const FlyeventGroups = () => {
   const [selectedComp, setSelectedComp] = useState<number>();
   const [selectedPilot, setSelectedPilot] = useState<number>();
 
@@ -54,25 +53,29 @@ const FlyeventGroups: NextPage = () => {
   return (
     <>
       {/* Select comp */}
-      <h3 className="mt-2 text-lg font-semibold">Comp</h3>
+      {comps.isFetched && (
+        <>
+          <h3 className="mt-2 text-lg font-semibold">Comp</h3>
 
-      <select
-        className="select focus:ring-primary mt-2 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white text-left text-slate-600  shadow-sm ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2"
-        onChange={handleSelectComp}
-        defaultValue="DEFAULT"
-      >
-        <option disabled value="DEFAULT">
-          Select Group
-        </option>
-        {listComps}
-      </select>
+          <select
+            className="select focus:ring-primary mt-2 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white px-2 text-left text-slate-600  shadow-sm ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2"
+            onChange={handleSelectComp}
+            defaultValue="DEFAULT"
+          >
+            <option disabled value="DEFAULT">
+              Select Group
+            </option>
+            {listComps}
+          </select>
+        </>
+      )}
       {/* Select pilot */}
 
       {selectedComp && pilots.isFetched && (
         <>
           <h3 className="mt-2 text-lg font-semibold">Pilot</h3>
           <select
-            className="select focus:ring-primary mt-2 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white text-left text-slate-600  shadow-sm ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2"
+            className="select focus:ring-primary mt-2 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white px-2 text-left text-slate-600  shadow-sm ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2"
             onChange={handleSelectPilot}
             value={selectedPilot ?? "DEFAULT"}
           >

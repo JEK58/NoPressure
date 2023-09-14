@@ -23,7 +23,7 @@ const WidgetURL = (props: Props) => {
         />
         <button
           onClick={() => copyToClipboard(props.url)}
-          className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400"
+          className="focus:ring-[hsl(342,100%,30%) ] rounded-lg bg-[hsl(342,100%,70%)] px-4 py-2 text-white hover:bg-[hsl(342,100%,50%)] focus:outline-none  focus:ring"
         >
           Copy
         </button>
