@@ -67,7 +67,7 @@ const FlymasterGroups: NextPage = () => {
         {listComps}
       </select>
       {/* Select pilot */}
-      {selectedComp && (
+      {selectedComp && pilots.isFetched && (
         <>
           <h3 className="mt-2 text-lg font-semibold">Pilot</h3>
 
