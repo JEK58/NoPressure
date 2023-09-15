@@ -16,11 +16,15 @@ export const pwcRouter = createTRPCRouter({
       return position;
     }),
 });
-
+interface Position {
+  position: number;
+  score: number;
+}
 const getPilotPosition = async (pilotNumber: string) => {
   const TTL = 60; // 1 minute for KV store
   try {
-    const res = await kv.get(pilotNumber);
+    const res = await kv.get<Position>(pilotNumber);
+    // TODO: check this further
     if (res) return res;
   } catch (error) {
     console.error(error);
