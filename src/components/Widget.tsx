@@ -18,22 +18,22 @@ const Widget = (props: Props) => {
   const h2size = props.blindmode ? "text-2xl" : "text-lg";
   const h2Class = `${h2size} ${staleColor} text-gray-700`;
 
-  // Check if data is older than 3 minutes
-  const STALE_TIME = 1000 * 60 * 3;
-
   useEffect(() => {
+    // Check if data is older than 3 minutes
+    const STALE_TIME = 1000 * 60 * 3;
     const staleData = () => {
       if (!props.dataUpdatedAt) return;
       if (props.dataUpdatedAt + STALE_TIME <= Date.now()) return setStale(true);
+
       setStale(false);
     };
 
-    const intervalId = setInterval(staleData, 1000 * 60);
+    const intervalId = setInterval(staleData, 1000 * 10);
 
     return () => {
       clearInterval(intervalId);
     };
-  });
+  }, [props.dataUpdatedAt]);
 
   return (
     <div className="flex h-screen flex-col items-center justify-center">
