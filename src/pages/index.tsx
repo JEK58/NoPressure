@@ -45,14 +45,14 @@ const Home: NextPage = () => {
       <main className="flex min-h-screen flex-col items-center justify-start bg-gradient-to-b from-[#15162c] to-[#167caf]">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <div>
-            <h1 className="max-w-3xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+            <h1 className="max-w-2xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
               No!<span className="text-[hsl(342,100%,70%)]">Pressure</span>
               <span className="ml-1 inline text-left text-sm tracking-normal">
                 beta
               </span>
             </h1>
             <div className="m-8"></div>
-            <h1 className="max-w-3xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+            <h1 className="max-w-2xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
               No<span className="text-[hsl(342,100%,70%)]">Pressure!</span>
               <span className="ml-1 inline text-left text-sm tracking-normal">
                 beta
@@ -60,7 +60,7 @@ const Home: NextPage = () => {
             </h1>
             <div className="m-8"></div>
 
-            <h1 className="max-w-3xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+            <h1 className="max-w-2xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
               No<span className="text-[hsl(342,100%,70%)]">!Pressure</span>
               <span className="ml-1 inline text-left text-sm tracking-normal">
                 beta
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
             </h2>
           </div>
 
-          <div className="mt-5 w-full max-w-3xl justify-center gap-3 md:flex">
+          <div className="mt-5 w-full max-w-2xl justify-center gap-3 md:flex">
             <div className="mb-3 w-full rounded-xl bg-white/10 p-4 text-white  md:mb-0">
               <h3 className="text-lg font-semibold">Platform</h3>
               {/* Select Platform */}
@@ -92,13 +92,6 @@ const Home: NextPage = () => {
             </div>
           </div>
           <HowToUse />
-
-          <div className="mockup-phone">
-            <div className="camera"></div>
-            <div className="display">
-              <div className="artboard artboard-demo phone-1">Hi.</div>
-            </div>
-          </div>
         </div>
         <Footer />
       </main>
