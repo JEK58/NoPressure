@@ -10,7 +10,7 @@ const HowToUse = () => {
         <br />
         Flyevent or PWC comps will also appear in the Flymaster groups but
         without respecting leading points* and no live score. So only use the
-        flymaster group if it&apos;s not available on the other platforms.
+        flymaster group if the comp is not available on the other platforms.
       </p>
       <h4 className="mt-3 text-lg font-semibold">Limitations</h4>
 
