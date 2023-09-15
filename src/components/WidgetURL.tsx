@@ -36,16 +36,19 @@ const WidgetURL = (props: Props) => {
         </button>
       </div>
       <div className="mt-4">
-        <label htmlFor="checkbox" className="flex items-center">
-          <input
-            id="checkbox"
-            type="checkbox"
-            checked={useBlindmode}
-            onChange={toggleBlindmode}
-            className="mr-2 h-6 w-6 rounded-md border-2 border-[hsl(342,100%,70%)] text-[hsl(342,100%,70%)]"
-          />
-          <span>Check this if the widget is to small for your eyes</span>
-        </label>
+        <div className="form-control  w-96">
+          <label className="label cursor-pointer">
+            <input
+              type="checkbox"
+              className="toggle toggle-secondary"
+              checked={useBlindmode}
+              onChange={toggleBlindmode}
+            />
+            <span className="label-text text-white">
+              Check this if the widget is too small for your eyes
+            </span>
+          </label>
+        </div>
       </div>
     </>
   );

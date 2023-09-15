@@ -1,6 +1,7 @@
 import { api } from "@/utils/api";
 import { useState } from "react";
 import WidgetURL from "./WidgetURL";
+import Spinner from "./Spinner";
 
 const FlyeventGroups = () => {
   const [selectedComp, setSelectedComp] = useState<number>();
@@ -14,7 +15,7 @@ const FlyeventGroups = () => {
       enabled: !!selectedComp,
       cacheTime: 60 * 1000, // 1 minute
       refetchOnWindowFocus: false,
-    }
+    },
   );
 
   const listComps = comps.data?.map((comp) => {
@@ -50,15 +51,16 @@ const FlyeventGroups = () => {
     return `${window.location.href}flyevent/${groupId}/${trackerId}`;
   };
 
+  if (!comps.isFetched) return <Spinner />;
+
   return (
     <>
-      {/* Select comp */}
       {comps.isFetched && (
         <>
           <h3 className="mt-2 text-lg font-semibold">Comp</h3>
 
           <select
-            className="select focus:ring-primary mt-2 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white px-2 text-left text-slate-600  shadow-sm ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2"
+            className="select mt-2 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white px-2 text-left text-slate-600 shadow-sm  ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-primary"
             onChange={handleSelectComp}
             defaultValue="DEFAULT"
           >
@@ -70,12 +72,13 @@ const FlyeventGroups = () => {
         </>
       )}
       {/* Select pilot */}
+      {selectedComp && !pilots.isFetched && <Spinner />}
 
       {selectedComp && pilots.isFetched && (
         <>
           <h3 className="mt-2 text-lg font-semibold">Pilot</h3>
           <select
-            className="select focus:ring-primary mt-2 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white px-2 text-left text-slate-600  shadow-sm ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2"
+            className="select mt-2 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white px-2 text-left text-slate-600 shadow-sm  ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-primary"
             onChange={handleSelectPilot}
             value={selectedPilot ?? "DEFAULT"}
           >
