@@ -23,7 +23,7 @@ const getPilotPosition = async (pilotNumber: string) => {
     const res = await kv.get(pilotNumber);
     if (res) return res;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 
   console.log("No cached values available, fetching PWC results...");
