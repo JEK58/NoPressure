@@ -35,7 +35,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Paragliding Race Position</title>
+        <title>NoPressure</title>
         <meta
           name="description"
           content="Widget URL generator for XCTrack & Alfapilot"
@@ -46,15 +46,14 @@ const Home: NextPage = () => {
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <div>
             <h1 className="max-w-3xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-              <span className="text-[hsl(342,100%,70%)]">Paragliding</span> Race
-              Position{" "}
-              <span className="inline text-left text-sm tracking-normal">
+              No<span className="text-[hsl(342,100%,70%)]">Pressure!</span>
+              <span className="ml-1 inline text-left text-sm tracking-normal">
                 beta
               </span>
             </h1>
 
             <h2 className="text-md mt-1 text-white md:text-xl">
-              Widget URL generator for XCTrack & Alfapilot
+              Race position widget URL generator for XCTrack & Alfapilot
             </h2>
           </div>
 

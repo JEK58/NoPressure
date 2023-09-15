@@ -5,14 +5,16 @@ const HowToUse = () => {
       <p className="mt-2 text-gray-300">
         Pick a platform, comp and pilot and copy the generated URL. In XCTrack
         or Alfapilot look for the &quot;website widget&quot; (at the bottom of
-        the list) and paste the URL. <br />
+        the list) and paste the URL. The widget will refresh data in the
+        background. No need to set a refresh rate in the widget options.
+        <br />
         Flyevent or PWC comps will also appear in the Flymaster groups but
-        without respecting leading points and no live score. So only use the
+        without respecting leading points* and no live score. So only use the
         flymaster group if it&apos;s not available on the other platforms.
       </p>
       <h4 className="mt-3 text-lg font-semibold">Limitations</h4>
 
-      <ul className="ml-3 mt-3 list-outside list-disc text-gray-300">
+      <ul className="ml-4 mt-3 list-outside list-disc text-gray-300">
         <li>This is a beta. Feel free to report any issues!</li>
         <li>
           Some events may not appear before the first task is started or live
@@ -25,6 +27,10 @@ const HowToUse = () => {
           during the event and the widget might not work at all times.
         </li>
       </ul>
+      <p className="mt-4 text-sm text-gray-300">
+        * At the recent PWC in Targassonne Flymaster ranking actually did
+        account for leading points, but this is not generally the case.
+      </p>
     </div>
   );
 };
