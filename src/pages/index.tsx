@@ -35,7 +35,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>No!Pressure</title>
+        <title>NoPressure!</title>
         <meta
           name="description"
           content="Widget URL generator for XCTrack & Alfapilot"
