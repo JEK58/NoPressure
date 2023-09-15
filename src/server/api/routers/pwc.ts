@@ -10,27 +10,31 @@ export const pwcRouter = createTRPCRouter({
         pilotNumber: z.string(),
       }),
     )
-    .query(async ({ input }) => {
-      const position = await getPilotPosition(input.pilotNumber);
-
-      return position;
-    }),
+    .query(async ({ input }) => await getPilotPosition(input.pilotNumber)),
 });
-interface Position {
-  position: number;
-  score: number;
-}
+
+// Check if pilot number exists in cache. If not, scrape the PWC page and save scores to cache.
 const getPilotPosition = async (pilotNumber: string) => {
+  interface Entry {
+    position: string;
+    score: string;
+  }
+
+  type kvEntry = [string, Entry][];
+
   const TTL = 60; // 1 minute for KV store
   try {
-    const res = await kv.get<Position>(pilotNumber);
-    // TODO: check this further
-    if (res) return res;
+    const kvScores = await kv.get<kvEntry>("pwc");
+    if (kvScores) {
+      const scores = new Map(kvScores);
+      const score = scores.get(pilotNumber);
+      if (score) return score;
+    }
   } catch (error) {
     console.error(error);
   }
 
-  console.log("No cached values available, fetching PWC results...");
+  console.log("No cached values available, scraping PWC results...");
 
   const liveResultUrl = await getPwcLiveResultsUrl();
 
@@ -45,6 +49,8 @@ const getPilotPosition = async (pilotNumber: string) => {
   const tablehead = table.find("th");
   const tableRows = table.find("tr");
 
+  // Find the "total points" column in the table.
+  // The number of columns changes depending on the state of the task
   let indexOfTotalPointsHeader = -1;
 
   tablehead.each((index, element) => {
@@ -55,7 +61,7 @@ const getPilotPosition = async (pilotNumber: string) => {
     }
   });
 
-  // const keyValuePairs: [string, { position: string; score: string }][] = [];
+  const scores = new Map<string, Entry>();
 
   for (const el of tableRows) {
     const id = $(el).find("td:nth-child(2)").text();
@@ -65,34 +71,19 @@ const getPilotPosition = async (pilotNumber: string) => {
       .text();
     if (!id) continue;
 
-    // TODO: Find a way to only write to KV once but still be able to set an expiry time.
-    // keyValuePairs.push([id, { position, score }]);
+    scores.set(id, { position, score });
+  }
+  try {
+    // Convert map to JSON and save to cache
+    const mapToArray: kvEntry = Array.from(scores);
+    const json = JSON.stringify(mapToArray);
 
-    try {
-      await kv.set(id, { position, score }, { ex: TTL });
-    } catch (error) {
-      console.error(error);
-    }
+    await kv.set("pwc", json, { ex: TTL });
+  } catch (error) {
+    console.error(error);
   }
 
-  // const objectData: Record<string, string> = {};
-  // for (const [key, value] of keyValuePairs) {
-  //   if (!key) continue;
-  //   objectData[key] = JSON.stringify(value);
-  // }
-
-  // await kv.mset(objectData);
-
-  const data = tableRows.filter((_, el) => {
-    const secondTdContent = $(el).find("td:nth-child(2)").text();
-    return secondTdContent.trim() === pilotNumber.toString();
-  });
-
-  const position = $(data).find("td:nth-child(1)").text();
-  const score = $(data)
-    .find(`td:nth-child(${indexOfTotalPointsHeader + 1})`)
-    .text();
-  return { position, score };
+  return scores.get(pilotNumber.toString());
 };
 
 async function getPwcLiveResultsUrl() {
