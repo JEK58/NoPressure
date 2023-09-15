@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="mb-2 p-2 text-xs  text-slate-200">
       <div className="mb-2 flex items-center justify-center gap-2">
         <a
-          href="https://github.com/JEK58/pg-race-position"
+          href="https://github.com/JEK58/NoPressure"
           className="flex items-center"
         >
           <FaGithub className="mr-1" />
