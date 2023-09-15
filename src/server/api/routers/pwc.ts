@@ -1,6 +1,7 @@
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { z } from "zod";
 import { load } from "cheerio";
+import { kv } from "@vercel/kv";
 
 export const pwcRouter = createTRPCRouter({
   position: publicProcedure
@@ -17,6 +18,16 @@ export const pwcRouter = createTRPCRouter({
 });
 
 const getPilotPosition = async (pilotNumber: string) => {
+  const TTL = 60; // 1 minute for KV store
+  try {
+    const res = await kv.get(pilotNumber);
+    if (res) return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  console.log("No cached values available, fetching PWC results...");
+
   const liveResultUrl = await getPwcLiveResultsUrl();
 
   if (!liveResultUrl) return;
@@ -39,6 +50,34 @@ const getPilotPosition = async (pilotNumber: string) => {
       return false;
     }
   });
+
+  // const keyValuePairs: [string, { position: string; score: string }][] = [];
+
+  for (const el of tableRows) {
+    const id = $(el).find("td:nth-child(2)").text();
+    const position = $(el).find("td:nth-child(1)").text();
+    const score = $(el)
+      .find(`td:nth-child(${indexOfTotalPointsHeader + 1})`)
+      .text();
+    if (!id) continue;
+
+    // TODO: Find a way to only write to KV once but still be able to set an expiry time.
+    // keyValuePairs.push([id, { position, score }]);
+
+    try {
+      await kv.set(id, { position, score }, { ex: TTL });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // const objectData: Record<string, string> = {};
+  // for (const [key, value] of keyValuePairs) {
+  //   if (!key) continue;
+  //   objectData[key] = JSON.stringify(value);
+  // }
+
+  // await kv.mset(objectData);
 
   const data = tableRows.filter((_, el) => {
     const secondTdContent = $(el).find("td:nth-child(2)").text();
