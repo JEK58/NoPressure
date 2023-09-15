@@ -46,22 +46,7 @@ const Home: NextPage = () => {
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <div>
             <h1 className="max-w-2xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-              No!<span className="text-[hsl(342,100%,70%)]">Pressure</span>
-              <span className="ml-1 inline text-left text-sm tracking-normal">
-                beta
-              </span>
-            </h1>
-            <div className="m-8"></div>
-            <h1 className="max-w-2xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
               No<span className="text-[hsl(342,100%,70%)]">Pressure!</span>
-              <span className="ml-1 inline text-left text-sm tracking-normal">
-                beta
-              </span>
-            </h1>
-            <div className="m-8"></div>
-
-            <h1 className="max-w-2xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-              No<span className="text-[hsl(342,100%,70%)]">!Pressure</span>
               <span className="ml-1 inline text-left text-sm tracking-normal">
                 beta
               </span>
