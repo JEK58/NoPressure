@@ -35,7 +35,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>NoPressure</title>
+        <title>No!Pressure</title>
         <meta
           name="description"
           content="Widget URL generator for XCTrack & Alfapilot"
@@ -46,7 +46,22 @@ const Home: NextPage = () => {
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <div>
             <h1 className="max-w-3xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+              No!<span className="text-[hsl(342,100%,70%)]">Pressure</span>
+              <span className="ml-1 inline text-left text-sm tracking-normal">
+                beta
+              </span>
+            </h1>
+            <div className="m-8"></div>
+            <h1 className="max-w-3xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
               No<span className="text-[hsl(342,100%,70%)]">Pressure!</span>
+              <span className="ml-1 inline text-left text-sm tracking-normal">
+                beta
+              </span>
+            </h1>
+            <div className="m-8"></div>
+
+            <h1 className="max-w-3xl text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+              No<span className="text-[hsl(342,100%,70%)]">!Pressure</span>
               <span className="ml-1 inline text-left text-sm tracking-normal">
                 beta
               </span>
@@ -77,6 +92,13 @@ const Home: NextPage = () => {
             </div>
           </div>
           <HowToUse />
+
+          <div className="mockup-phone">
+            <div className="camera"></div>
+            <div className="display">
+              <div className="artboard artboard-demo phone-1">Hi.</div>
+            </div>
+          </div>
         </div>
         <Footer />
       </main>
