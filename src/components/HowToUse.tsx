@@ -2,7 +2,7 @@ const HowToUse = () => {
   return (
     <div className="mt-2 max-w-3xl rounded-xl bg-white/10 p-4 text-white">
       <h3 className="text-lg font-semibold">How to Use</h3>
-      <p className="mt-2 text-gray-300">
+      <p className="mt-2 text-gray-200">
         Pick a platform, comp and pilot and copy the generated URL. In XCTrack
         or Alfapilot look for the &quot;website widget&quot; (at the bottom of
         the list) and paste the URL. The widget will refresh data in the
@@ -14,7 +14,7 @@ const HowToUse = () => {
       </p>
       <h4 className="mt-3 text-lg font-semibold">Limitations</h4>
 
-      <ul className="ml-4 mt-3 list-outside list-disc text-gray-300">
+      <ul className="ml-4 mt-3 list-outside list-disc text-gray-200">
         <li>This is a beta. Feel free to report any issues!</li>
         <li>
           Some events may not appear before the first task is started or live
@@ -27,7 +27,7 @@ const HowToUse = () => {
           during the event and the widget might not work at all times.
         </li>
       </ul>
-      <p className="mt-4 text-sm text-gray-300">
+      <p className="mt-4 text-sm text-gray-200">
         * At the recent PWC in Targassonne Flymaster ranking actually did
         account for leading points, but this is not generally the case.
       </p>
