@@ -62,7 +62,7 @@ const Home: NextPage = () => {
               <h3 className="text-lg font-semibold">Platform</h3>
               {/* Select Platform */}
               <select
-                className="select mt-3 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white px-2 text-left text-slate-600 shadow-sm  ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="select mt-2 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white px-2 text-left text-slate-600 shadow-sm  ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-secondary"
                 onChange={handleSelectPlatform}
                 defaultValue="DEFAULT"
               >

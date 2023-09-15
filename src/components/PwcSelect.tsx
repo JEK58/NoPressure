@@ -15,13 +15,13 @@ const PwcSelect = () => {
 
   return (
     <>
-      <h3 className="mt-2 text-lg font-semibold">Pilot Number</h3>
+      <h3 className="mt-3 text-lg font-semibold">Pilot Number</h3>
       <div className="mt-2 w-full md:mb-0">
         <div className="relative">
           <input
             autoFocus
             type="number"
-            className="input focus:ring-primary h-12 w-full space-x-3 rounded-lg border border-gray-300 bg-white px-2 text-left text-slate-600 shadow-sm ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2"
+            className="input h-12 w-full space-x-3 rounded-lg border border-gray-300 bg-white px-2 text-left text-slate-600 shadow-sm ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-secondary"
             onChange={onPilotNumberChange}
             placeholder="PWC Pilot Number"
           />

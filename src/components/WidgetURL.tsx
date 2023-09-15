@@ -18,14 +18,14 @@ const WidgetURL = (props: Props) => {
 
   return (
     <>
-      <h3 className="mt-2 text-lg font-semibold">Widget URL</h3>
+      <h3 className="mt-3 text-lg font-semibold">Widget URL</h3>
 
-      <div className="mt-3 flex items-center">
+      <div className="mt-2 flex items-center">
         <input
           id="urlInput"
           type="text"
           value={url}
-          className="mr-2 w-full rounded-lg border border-gray-300 bg-white p-2 text-black"
+          className="mr-2 w-full rounded-lg border border-gray-300 bg-white p-2 text-black focus:outline-none focus:ring-2 focus:ring-secondary"
           readOnly
         />
         <button
