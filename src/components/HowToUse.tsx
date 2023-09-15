@@ -1,6 +1,6 @@
 const HowToUse = () => {
   return (
-    <div className="mt-2 max-w-2xl rounded-xl bg-white/10 p-4 text-white">
+    <div className="mt-1 max-w-2xl rounded-xl bg-white/10 p-4 text-white">
       <h3 className="text-lg font-semibold">How to Use</h3>
       <p className="mt-2 text-gray-200">
         Pick a platform, comp and pilot and copy the generated URL. In XCTrack
