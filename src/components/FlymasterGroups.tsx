@@ -2,6 +2,7 @@ import { api } from "@/utils/api";
 import { useState } from "react";
 import WidgetURL from "./WidgetURL";
 import Spinner from "@/components/Spinner";
+import GenericError from "./GenericError";
 
 const FlymasterGroups = () => {
   const [selectedComp, setSelectedComp] = useState<number>();
@@ -55,7 +56,7 @@ const FlymasterGroups = () => {
   return (
     <>
       {/* Select comp */}
-      {comps.isFetched && (
+      {comps.isFetched && !comps.error && (
         <>
           <h3 className="mt-3 text-lg font-semibold">Group</h3>
 
@@ -94,6 +95,8 @@ const FlymasterGroups = () => {
       {selectedPilot && selectedComp && (
         <WidgetURL url={getWidgetUrl(selectedComp, selectedPilot)} />
       )}
+      {/* Error */}
+      {(comps.error || pilots.error) && <GenericError />}
     </>
   );
 };

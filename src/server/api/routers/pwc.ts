@@ -7,7 +7,7 @@ export const pwcRouter = createTRPCRouter({
     .input(
       z.object({
         pilotNumber: z.string(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const position = await getPilotPosition(input.pilotNumber);

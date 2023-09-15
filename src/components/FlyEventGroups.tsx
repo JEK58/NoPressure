@@ -2,6 +2,7 @@ import { api } from "@/utils/api";
 import { useState } from "react";
 import WidgetURL from "./WidgetURL";
 import Spinner from "./Spinner";
+import GenericError from "./GenericError";
 
 const FlyeventGroups = () => {
   const [selectedComp, setSelectedComp] = useState<number>();
@@ -55,7 +56,7 @@ const FlyeventGroups = () => {
 
   return (
     <>
-      {comps.isFetched && (
+      {comps.isFetched && !comps.error && (
         <>
           <h3 className="mt-3 text-lg font-semibold">Comp</h3>
 
@@ -93,6 +94,8 @@ const FlyeventGroups = () => {
       {selectedPilot && selectedComp && (
         <WidgetURL url={getWidgetUrl(selectedComp, selectedPilot)} />
       )}
+      {/* Error */}
+      {(comps.error || pilots.error) && <GenericError />}
     </>
   );
 };

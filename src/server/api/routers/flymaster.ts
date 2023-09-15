@@ -12,7 +12,7 @@ export const flymasterRouter = createTRPCRouter({
       if (!input.groupId) return;
       const pilots = await getPilotsFromGroupId(input.groupId);
       pilots.sort((a, b) =>
-        a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
       );
 
       return pilots;
@@ -22,12 +22,12 @@ export const flymasterRouter = createTRPCRouter({
       z.object({
         groupId: z.string(),
         trackerSerial: z.string(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const position = await getFlymasterPosition(
         input.groupId,
-        input.trackerSerial
+        input.trackerSerial,
       );
 
       return position;
@@ -97,7 +97,7 @@ interface FlymasterGroupResponse {
     string?,
     string?,
     string?,
-    string?
+    string?,
   ][];
 }
 
@@ -107,7 +107,7 @@ const getFlymasterPosition = async (group: string, tracker: string) => {
   const serverTime = await getFlymasterServerTime(group);
 
   const url = `https://lt.flymaster.net/json/GROUPS/${group}/${roundTimeToHour(
-    serverTime
+    serverTime,
   )}/rnk${roundTimeToMinute(serverTime)}.json`;
 
   const res = await fetch(url);

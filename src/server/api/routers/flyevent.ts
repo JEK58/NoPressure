@@ -15,7 +15,7 @@ export const flyeventRouter = createTRPCRouter({
       if (!pilots) return;
 
       pilots.sort((a, b) =>
-        a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
       );
 
       return pilots;
@@ -25,7 +25,7 @@ export const flyeventRouter = createTRPCRouter({
       z.object({
         groupId: z.string(),
         pilotId: z.string(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const position = await getPilotPosition(input.groupId, input.pilotId);
@@ -49,7 +49,7 @@ const getFlyeventGroups = async () => {
     const body = (await res.json()) as FlyeventGroups;
     return body.activeComps;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
