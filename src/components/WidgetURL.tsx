@@ -19,8 +19,9 @@ const WidgetURL = (props: Props) => {
 
   return (
     <>
+      {/* Divider */}
       <div className="divider mt-7 px-1  before:bg-base-300 after:bg-base-300">
-        <BiCheck className="text-5xl" />
+        <BiCheck className="text-5xl text-secondary" />
       </div>
 
       <h3 className="mt-3 text-lg font-semibold">Widget URL</h3>

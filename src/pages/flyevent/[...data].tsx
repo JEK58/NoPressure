@@ -19,16 +19,19 @@ export function Position() {
     {
       refetchInterval: 1000 * 60, // 1 minute
       enabled: !!(groupId && pilotId),
-    }
+    },
   );
 
   return (
-    <Widget
-      position={position.data?.position}
-      score={position.data?.score}
-      blindmode={blindmode === "iamold"}
-      isFetching={position.isFetching}
-    />
+    <>
+      <Widget
+        position={position.data?.position}
+        score={position.data?.score}
+        blindmode={blindmode === "iamold"}
+        isFetching={position.isFetching}
+        dataUpdatedAt={position.dataUpdatedAt}
+      />
+    </>
   );
 }
 
