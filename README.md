@@ -1,5 +1,6 @@
 # NoPressure!
-###### Race position widget URL generator for XCTrack & Alfapilot
+
+Race position widget URL generator for XCTrack & Alfapilot
 
 
 ### How to use
