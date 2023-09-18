@@ -16,3 +16,5 @@ Flyevent or PWC comps will also appear in the Flymaster groups but without respe
 - Flymaster groups have a 4 minute delay.
 With the recent changes in the PWC some adjustements may be needed during the event and the widget might not work at all times.
 - At the recent PWC in Targassonne Flymaster ranking actually did account for leading points, but this is not generally the case.
+
+<img width="477" alt="Screenshot 2023-09-18 at 11 49 24" src="https://github.com/JEK58/NoPressure/assets/35194489/0f2cf0e8-acc3-4e69-93ab-ec00413ac029">
