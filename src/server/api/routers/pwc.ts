@@ -87,7 +87,7 @@ const getPilotPosition = async (pilotNumber: string) => {
 
 async function getPwcLiveResultsUrl() {
   const resultUrl = "https://pwca.events/pwca-live-results/";
-  const res = await fetch(`https://corsproxy.io/?${resultUrl}`);
+  const res = await fetch(resultUrl);
   const content = await res.text();
   const $ = load(content);
 
