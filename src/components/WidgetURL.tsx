@@ -54,7 +54,7 @@ const WidgetURL = (props: Props) => {
               checked={useBlindmode}
               onChange={toggleBlindmode}
             />
-            <span className="label-text  ml-2 text-white">
+            <span className="ml-2 text-white">
               Check this if the widget is too small for your eyes
             </span>
           </label>
