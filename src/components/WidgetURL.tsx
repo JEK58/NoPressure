@@ -40,7 +40,7 @@ const WidgetURL = (props: Props) => {
         />
         <button
           onClick={() => copyToClipboard(url)}
-          className="focus:ring-[hsl(342,100%,30%) ] flex h-10 w-20 items-center justify-center rounded-lg bg-[hsl(342,100%,70%)]  px-4 py-2 text-white hover:bg-[hsl(342,100%,50%)] focus:outline-none focus:ring"
+          className="focus:ring-[hsl(342,100%,30%) ] flex h-10 w-20 items-center justify-center rounded-lg bg-[hsl(342,100%,70%)]  px-4 py-2 text-white hover:bg-[hsl(342,100%,50%)] focus:outline-none focus:ring-2 focus:ring-secondary"
         >
           {feedback ? <BsCheck2Circle className="text-xl" /> : "Copy"}
         </button>

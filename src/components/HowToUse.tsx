@@ -1,7 +1,7 @@
 const HowToUse = () => {
   return (
     <div className="mt-1 max-w-2xl rounded-xl bg-white/10 p-4 text-white">
-      <h3 className="text-lg font-semibold">How to Use</h3>
+      <h3 className="text-lg font-semibold">How to use</h3>
       <ul className="ml-4 mt-3 list-outside list-disc text-gray-200">
         <li>Pick a platform, comp and pilot and copy the generated URL.</li>
         <li>
