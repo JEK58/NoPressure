@@ -25,8 +25,7 @@ export function Position() {
   return (
     <>
       <Widget
-        position={position.data?.position}
-        score={position.data?.score}
+        data={position.data}
         blindmode={blindmode === "iamold"}
         isFetching={position.isFetching}
         dataUpdatedAt={position.dataUpdatedAt}

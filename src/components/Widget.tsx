@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 
 interface Props {
-  position?: string | number;
-  score?: string | number;
+  data?: { position?: string | number; score?: string | number };
   isFetching?: boolean;
   blindmode?: boolean;
   dataUpdatedAt?: number;
@@ -37,14 +36,14 @@ const Widget = (props: Props) => {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center">
-      {!props.position && (
+      {!props.data?.position && (
         <span className="relative flex h-3 w-3">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
           <span className="relative inline-flex h-3 w-3 rounded-full bg-sky-500"></span>
         </span>
       )}
-      <h1 className={h1Class}>{props.position}</h1>
-      {props.score && <h2 className={h2Class}>{props.score}</h2>}
+      <h1 className={h1Class}>{props.data?.position}</h1>
+      {props.data?.score && <h2 className={h2Class}>{props.data?.score}</h2>}
     </div>
   );
 };

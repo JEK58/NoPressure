@@ -18,15 +18,15 @@ export function PWC() {
     {
       refetchInterval: 1000 * 60, // 1 minute
       enabled: !!pilotNumber,
-    }
+    },
   );
 
   return (
     <Widget
-      position={position.data?.position}
-      score={position.data?.score}
+      data={position.data}
       blindmode={blindmode === "iamold"}
       isFetching={position.isFetching}
+      dataUpdatedAt={position.dataUpdatedAt}
     />
   );
 }

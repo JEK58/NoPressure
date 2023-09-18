@@ -125,15 +125,16 @@ function roundTimeToMinute(serverTime: number): number {
 }
 
 function getPilotRanking(serial: string, data: FlymasterGroupResponse) {
+  const noData = { position: "?" };
   try {
     const pilotData = data.aaData?.find((el) => el[0] == serial);
 
-    if (!pilotData) return "?";
+    if (!pilotData) return noData;
     const rank = pilotData[1];
-    return rank;
+    return { position: rank };
   } catch (error) {
     console.log(error);
 
-    return "?";
+    return noData;
   }
 }

@@ -19,14 +19,15 @@ export function Position() {
     {
       refetchInterval: 1000 * 60, // 1 minute
       enabled: !!(groupId && trackerSerial),
-    }
+    },
   );
 
   return (
     <Widget
-      position={position.data}
+      data={position.data}
       blindmode={blindmode == "iamold"}
       isFetching={position.isFetching}
+      dataUpdatedAt={position.dataUpdatedAt}
     />
   );
 }
