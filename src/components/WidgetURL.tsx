@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { BiCheck } from "react-icons/bi";
+import { BsCheck2Circle } from "react-icons/bs";
 interface Props {
   url: string;
 }
 
 const WidgetURL = (props: Props) => {
   const [useBlindmode, setUseBlindMode] = useState(false);
+  const [feedback, setFeedback] = useState(false);
 
   const toggleBlindmode = () => setUseBlindMode(!useBlindmode);
 
@@ -13,6 +15,8 @@ const WidgetURL = (props: Props) => {
     navigator.clipboard.writeText(text).catch((error) => {
       console.error("Failed to copy: ", error);
     });
+    setFeedback(true);
+    setTimeout(() => setFeedback(false), 2000);
   };
 
   const url = props.url + (useBlindmode ? "/iamold" : "");
@@ -36,9 +40,9 @@ const WidgetURL = (props: Props) => {
         />
         <button
           onClick={() => copyToClipboard(url)}
-          className="focus:ring-[hsl(342,100%,30%) ] rounded-lg bg-[hsl(342,100%,70%)] px-4 py-2 text-white hover:bg-[hsl(342,100%,50%)] focus:outline-none  focus:ring"
+          className="focus:ring-[hsl(342,100%,30%) ] flex h-10 w-20 items-center justify-center rounded-lg bg-[hsl(342,100%,70%)]  px-4 py-2 text-white hover:bg-[hsl(342,100%,50%)] focus:outline-none focus:ring"
         >
-          Copy
+          {feedback ? <BsCheck2Circle className="text-xl" /> : "Copy"}
         </button>
       </div>
       <div className="mt-4">
