@@ -46,15 +46,15 @@ const WidgetURL = (props: Props) => {
         </button>
       </div>
       <div className="mt-4">
-        <div className="form-control  w-96">
-          <label className="label cursor-pointer">
+        <div className="form-control">
+          <label className="label cursor-pointer ">
             <input
               type="checkbox"
               className="toggle toggle-secondary"
               checked={useBlindmode}
               onChange={toggleBlindmode}
             />
-            <span className="label-text text-white">
+            <span className="label-text  ml-2 text-white">
               Check this if the widget is too small for your eyes
             </span>
           </label>
