@@ -28,7 +28,7 @@ const HowToUse = () => {
           you could always manually create your personal URL if you know your
           pilot number and the comp id.
         </li>
-        <li>Flymaster groups have a 4 minutes delay.</li>
+        <li>Flymaster groups have a 4 minute delay.</li>
         <li>
           With the recent changes in the PWC some adjustements may be needed
           during the event and the widget might not work at all times.
