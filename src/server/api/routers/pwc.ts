@@ -21,7 +21,6 @@ const getPilotPosition = async (pilotNumber: string) => {
   }
 
   type kvEntry = [string, Entry][];
-
   const TTL = 60; // 1 minute for KV store
   try {
     const kvScores = await kv.get<kvEntry>("pwc");
@@ -83,7 +82,7 @@ const getPilotPosition = async (pilotNumber: string) => {
     console.error(error);
   }
 
-  return scores.get(pilotNumber.toString());
+  return scores.get(pilotNumber.toString()) ?? { position: "?" };
 };
 
 async function getPwcLiveResultsUrl() {

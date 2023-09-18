@@ -94,6 +94,8 @@ const getPilotsFromGroupId = async (groupId: number) => {
 };
 
 const getPilotPosition = async (groupId: string, pilotId: string) => {
+  const noData = { position: "?" };
+  // TODO: Cache this requests as well?
   const url = `https://race.airtribune.com/${groupId}/feed_live.json`;
   const res = await fetch(url + "?" + new Date().getTime().toString(), {
     cache: "no-store",
@@ -113,12 +115,12 @@ const getPilotPosition = async (groupId: string, pilotId: string) => {
     return el[0][2] == pilotId?.padStart(4, "0");
   });
 
-  if (!Array.isArray(pilots)) return;
-  if (!Array.isArray(pilots[0])) return;
+  if (!Array.isArray(pilots)) return noData;
+  if (!Array.isArray(pilots[0])) return noData;
   const pilot = pilots[0][0];
-  if (!pilot) return;
+  if (!pilot) return noData;
   const position = pilot[1];
-  if (!position) return;
+  if (!position) return noData;
   const score = pilot[24];
 
   return { position, score };
