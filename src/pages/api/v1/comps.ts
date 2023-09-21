@@ -1,15 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getFlyeventGroups } from "@/server/api/routers/flyevent";
 import { getFlymasterGroups } from "@/server/api/routers/flymaster";
-import { apiKeyIsValid } from "@/server/middleware/api-key";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  if (!apiKeyIsValid(req))
-    return res.status(401).json({ error: "Unauthorized" });
-
   try {
     const [flyevent, flymaster] = await Promise.all([
       getFlyeventGroups(),

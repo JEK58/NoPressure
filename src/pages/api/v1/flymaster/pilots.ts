@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getPilotsFromGroupId } from "@/server/api/routers/flymaster";
 import { z } from "zod";
-import { apiKeyIsValid } from "@/server/middleware/api-key";
 
 export const querySchema = z.object({
   groupId: z.string(),
@@ -11,8 +10,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  if (!apiKeyIsValid(req))
-    return res.status(401).json({ error: "Unauthorized" });
   try {
     const queryParams = querySchema.parse(req.query);
     const { groupId } = queryParams;
