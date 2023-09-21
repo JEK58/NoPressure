@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getPilotsFromGroupId } from "@/server/api/routers/flyevent";
+import { getPilotsFromGroupId } from "@/server/api/routers/flymaster";
 import { z } from "zod";
 
 export const querySchema = z.object({

@@ -14,7 +14,7 @@ export const pwcRouter = createTRPCRouter({
 });
 
 // Check if pilot number exists in cache. If not, scrape the PWC page and save scores to cache.
-const getPilotPosition = async (pilotNumber: string) => {
+export const getPilotPosition = async (pilotNumber: string) => {
   interface Entry {
     position: string;
     score: string;
