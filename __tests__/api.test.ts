@@ -1,3 +1,4 @@
+import { env } from "@/env.mjs";
 interface Position {
   position: number;
   score: string;
@@ -7,8 +8,12 @@ interface ErrorResponse {
   error: string;
 }
 
+const headers = {
+  Authorization: env.API_KEY,
+};
+
 it("finds the correct number of event platforms", async () => {
-  const res = await fetch("http://localhost:3001/api/v1/comps");
+  const res = await fetch("http://localhost:3001/api/v1/comps", { headers });
   const comps = (await res.json()) as unknown[];
 
   expect(comps.length).toBe(3);
@@ -19,6 +24,7 @@ it("finds all pilots in a Flyevent comp", async () => {
   const expectedNumPilots = 90;
   const res = await fetch(
     `http://localhost:3001/api/v1/flyevent/pilots?groupId=${id}`,
+    { headers },
   );
   const comps = (await res.json()) as unknown[];
 
@@ -31,6 +37,7 @@ it("it rejects if the groupId is not a valid number", async () => {
 
   const res = await fetch(
     `http://localhost:3001/api/v1/flyevent/pilots?groupId=${id}`,
+    { headers },
   );
   const error = (await res.json()) as ErrorResponse;
 
@@ -42,6 +49,7 @@ it("finds all pilots in a Flymaster comp", async () => {
   const expectedNumPilots = 40;
   const res = await fetch(
     `http://localhost:3001/api/v1/flymaster/pilots?groupId=${id}`,
+    { headers },
   );
   const comps = (await res.json()) as unknown[];
 
@@ -62,6 +70,7 @@ it("finds the correct position for a pilot in a Flyevent comp", async () => {
 
   const res = await fetch(
     `http://localhost:3001/api/v1/flyevent/position?groupId=${groupId}&pilotId=${pilotId}`,
+    { headers },
   );
   const position = (await res.json()) as Position;
 
@@ -83,6 +92,7 @@ it("finds the correct position for a pilot in a Flymaster group", async () => {
 
   const res = await fetch(
     `http://localhost:3001/api/v1/flymaster/position?groupId=${groupId}&pilotId=${pilotId}`,
+    { headers },
   );
   const position = (await res.json()) as Position;
 
@@ -98,6 +108,7 @@ it("finds the correct position for a pilot in a PWC", async () => {
 
   const res = await fetch(
     `http://localhost:3001/api/v1/pwc/position?pilotId=${pilotId}`,
+    { headers },
   );
   const position = (await res.json()) as Position;
 
