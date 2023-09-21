@@ -43,7 +43,7 @@ interface Group {
   name: string;
 }
 
-const getFlyeventGroups = async () => {
+export const getFlyeventGroups = async () => {
   try {
     const res = await fetch("https://race.airtribune.com/active_comps.json");
     const body = (await res.json()) as FlyeventGroups;
@@ -53,7 +53,7 @@ const getFlyeventGroups = async () => {
   }
 };
 
-const getPilotsFromGroupId = async (groupId: number) => {
+export const getPilotsFromGroupId = async (groupId: number) => {
   try {
     const url = `https://race.airtribune.com/${groupId}/feed_live.json`;
     const res = await fetch(url + "?" + new Date().getTime().toString(), {
@@ -93,7 +93,7 @@ const getPilotsFromGroupId = async (groupId: number) => {
   }
 };
 
-const getPilotPosition = async (groupId: string, pilotId: string) => {
+export const getPilotPosition = async (groupId: string, pilotId: string) => {
   const noData = { position: "?" };
   // TODO: Cache this requests as well?
   const url = `https://race.airtribune.com/${groupId}/feed_live.json`;

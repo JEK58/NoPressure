@@ -44,7 +44,7 @@ export interface Group {
   group_name: string;
 }
 
-const getFlymasterGroups = async () => {
+export const getFlymasterGroups = async () => {
   try {
     const res = await fetch("https://lb.flymaster.net/bsBrowsableGroups.php");
     const body = (await res.json()) as FlymasterGroups;
@@ -101,7 +101,7 @@ interface FlymasterGroupResponse {
   ][];
 }
 
-const getFlymasterPosition = async (group: string, tracker: string) => {
+export const getFlymasterPosition = async (group: string, tracker: string) => {
   console.log("🚀 ~ Fetching flymaster position for pilot:", tracker);
 
   const serverTime = await getFlymasterServerTime(group);
