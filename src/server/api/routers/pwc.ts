@@ -61,8 +61,9 @@ export const getPilotPosition = async (pilotNumber: string) => {
   });
 
   const scores = new Map<string, Entry>();
+  const tableRowsArray = tableRows.toArray();
 
-  for (const el of tableRows) {
+  for (const el of tableRowsArray) {
     const id = $(el).find("td:nth-child(2)").text();
     const position = $(el).find("td:nth-child(1)").text();
     const score = $(el)
