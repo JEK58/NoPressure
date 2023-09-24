@@ -43,6 +43,12 @@ export const getPilotPosition = async (pilotNumber: string) => {
   const html = await response.text();
   const $ = load(html);
 
+  // Filter out the Alerts table that only appears if there are alerts
+  $('div > h2:contains("Alerts")').each((_, element) => {
+    const parentDiv = element.parent;
+    if (parentDiv) $(parentDiv).remove();
+  });
+
   const table = $("table.result").eq(1);
 
   const tablehead = table.find("th");
