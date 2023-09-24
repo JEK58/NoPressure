@@ -17,6 +17,7 @@
     "@trpc/next": "^10.38.4",
     "@trpc/react-query": "^10.38.4",
     "@trpc/server": "^10.38.4",
+    "@vercel/analytics": "^1.0.2",
     "@vercel/kv": "^0.2.3",
     "cheerio": "^1.0.0-rc.12",
     "jsonrepair": "^3.2.1",
