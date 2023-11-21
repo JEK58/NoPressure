@@ -35,7 +35,7 @@ export const flymasterRouter = createTRPCRouter({
 });
 
 export interface FlymasterGroups {
-  groups: Group[];
+  groups?: Group[];
   rcode?: number;
 }
 
@@ -48,8 +48,11 @@ export const getFlymasterGroups = async () => {
   try {
     const res = await fetch("https://lb.flymaster.net/bsBrowsableGroups.php");
     const body = (await res.json()) as FlymasterGroups;
-    return body.groups;
-  } catch (error) {}
+
+    return body.groups ?? [];
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 interface FlymasterGroupResponse {
