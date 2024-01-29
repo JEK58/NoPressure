@@ -1,6 +1,7 @@
 import { createTRPCRouter } from "@/server/api/trpc";
 import { flymasterRouter } from "@/server/api/routers/flymaster";
 import { flyeventRouter } from "@/server/api/routers/flyevent";
+import { compcheckRouter } from "@/server/api/routers/compcheck";
 import { pwcRouter } from "./routers/pwc";
 
 /**
@@ -11,6 +12,7 @@ import { pwcRouter } from "./routers/pwc";
 export const appRouter = createTRPCRouter({
   flymaster: flymasterRouter,
   flyevent: flyeventRouter,
+  compcheck: compcheckRouter,
   pwc: pwcRouter,
 });
 
