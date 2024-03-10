@@ -13,8 +13,8 @@ const Home: NextPage = () => {
 
   const platforms = [
     { name: "Flymaster", id: 1 },
-    { name: "Flyevent 2024", id: 4 },
-    { name: "Flyevent / SRS", id: 2 },
+    { name: "Flyevent / SRS 2024", id: 4 },
+    // { name: "Flyevent / SRS", id: 2 },
     { name: "PWC", id: 3 },
   ];
 
