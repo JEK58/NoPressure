@@ -18,6 +18,7 @@ export const getPilotPosition = async (pilotNumber: string) => {
   interface Entry {
     position: string;
     leadingPoints: string;
+    percentage?: string;
   }
 
   type kvEntry = [string, Entry][];
@@ -79,6 +80,26 @@ export const getPilotPosition = async (pilotNumber: string) => {
 
     allLeadingPoints.set(id, { position, leadingPoints });
   }
+
+  const maxLeadingPoints = Math.max(
+    ...Array.from(allLeadingPoints.values()).map((entry) => {
+      const leadingPoints = parseFloat(entry.leadingPoints);
+      if (Number.isNaN(leadingPoints)) return 0;
+
+      return parseFloat(entry.leadingPoints);
+    }),
+  );
+
+  // Calculate each pilots percentage of leading points and add it to the map
+  for (const [key, value] of allLeadingPoints) {
+    const percentage = (
+      (parseInt(value.leadingPoints) / maxLeadingPoints) *
+      100
+    ).toFixed(0);
+
+    allLeadingPoints.set(key, { ...value, percentage });
+  }
+
   try {
     // Convert map to JSON and save to cache
     const mapToArray: kvEntry = Array.from(allLeadingPoints);
