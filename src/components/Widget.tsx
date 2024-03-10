@@ -20,7 +20,7 @@ const Widget = (props: Props) => {
   const h1Class = `${h1Size} ${staleColor} font-bold mb-0 `;
 
   const h2size = props.blindmode ? "text-2xl" : "text-lg";
-  const h2Class = `${h2size} ${staleColor} text-gray-700`;
+  const h2Class = `${h2size} ${staleColor} text-gray-700 font-semibold`;
 
   useEffect(() => {
     // Check if data is older than 3 minutes
