@@ -73,10 +73,7 @@ const Home: NextPage = () => {
                 </option>
                 {listPlatforms}
               </select>
-              <p className="mt-2 text-red-500">
-                PWC Super Final: I need to check during/after the first task if
-                live scoring is the same as last year to make this work.
-              </p>
+
               {selectedPlatform === 1 && <FlymasterGroups />}
               {selectedPlatform === 2 && <FlyeventGroups />}
               {selectedPlatform === 3 && <PwcSelect />}

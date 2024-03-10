@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 
 interface Props {
-  data?: { position?: string | number; score?: string | number };
+  data?: {
+    position?: string | number;
+    score?: string | number;
+    leadingPoints?: string | number;
+  };
   isFetching?: boolean;
   blindmode?: boolean;
   dataUpdatedAt?: number;
@@ -44,6 +48,9 @@ const Widget = (props: Props) => {
       )}
       <h1 className={h1Class}>{props.data?.position}</h1>
       {props.data?.score && <h2 className={h2Class}>{props.data?.score}</h2>}
+      {props.data?.leadingPoints && (
+        <h2 className={h2Class}>LO: {props.data?.leadingPoints}</h2>
+      )}
     </div>
   );
 };

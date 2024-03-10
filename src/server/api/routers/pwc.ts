@@ -17,7 +17,7 @@ export const pwcRouter = createTRPCRouter({
 export const getPilotPosition = async (pilotNumber: string) => {
   interface Entry {
     position: string;
-    score: string;
+    leadingPoints: string;
   }
 
   type kvEntry = [string, Entry][];
@@ -27,6 +27,7 @@ export const getPilotPosition = async (pilotNumber: string) => {
     if (kvScores) {
       const scores = new Map(kvScores);
       const score = scores.get(pilotNumber);
+
       if (score) return score;
     }
   } catch (error) {
@@ -54,33 +55,33 @@ export const getPilotPosition = async (pilotNumber: string) => {
   const tablehead = table.find("th");
   const tableRows = table.find("tr");
 
-  // Find the "total points" column in the table.
+  // Find the "leading points" column in the table.
   // The number of columns changes depending on the state of the task
   let indexOfTotalPointsHeader = -1;
 
   tablehead.each((index, element) => {
     const headerContent = $(element).text();
-    if (headerContent.trim().toLowerCase() === "totalpoints") {
+    if (headerContent.trim().toLowerCase() === "lead.points") {
       indexOfTotalPointsHeader = index;
       return false;
     }
   });
 
-  const scores = new Map<string, Entry>();
+  const allLeadingPoints = new Map<string, Entry>();
 
   for (const el of tableRows) {
     const id = $(el).find("td:nth-child(2)").text();
     const position = $(el).find("td:nth-child(1)").text();
-    const score = $(el)
+    const leadingPoints = $(el)
       .find(`td:nth-child(${indexOfTotalPointsHeader + 1})`)
       .text();
     if (!id) continue;
 
-    scores.set(id, { position, score });
+    allLeadingPoints.set(id, { position, leadingPoints });
   }
   try {
     // Convert map to JSON and save to cache
-    const mapToArray: kvEntry = Array.from(scores);
+    const mapToArray: kvEntry = Array.from(allLeadingPoints);
     const json = JSON.stringify(mapToArray);
 
     await kv.set("pwc", json, { ex: TTL });
@@ -88,7 +89,7 @@ export const getPilotPosition = async (pilotNumber: string) => {
     console.error(error);
   }
 
-  return scores.get(pilotNumber.toString()) ?? { position: "?" };
+  return allLeadingPoints.get(pilotNumber.toString()) ?? { position: "?" };
 };
 
 async function getPwcLiveResultsUrl() {

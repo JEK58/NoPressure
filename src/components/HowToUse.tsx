@@ -1,7 +1,12 @@
 const HowToUse = () => {
   return (
     <div className="mt-1 max-w-2xl rounded-xl bg-white/10 p-4 text-white">
+      <p className="mb-3 text-gray-200">
+        <span className="font-semibold">🚀 New:</span> Using PWC in the dropdown
+        will now show the live leading points instead of total score.
+      </p>
       <h3 className="text-lg font-semibold">How to use</h3>
+
       <ul className="ml-4 mt-3 list-outside list-disc text-gray-200">
         <li>Pick a platform, comp and pilot and copy the generated URL.</li>
         <li>
@@ -35,8 +40,8 @@ const HowToUse = () => {
         </li>
       </ul>
       <p className="mt-4 text-sm text-gray-200">
-        * At the recent PWC in Targassonne Flymaster ranking actually did
-        account for leading points, but this is not generally the case.
+        * except for PWC events where leading points are now respected in the
+        flymaster ranking.
       </p>
     </div>
   );
