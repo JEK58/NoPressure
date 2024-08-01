@@ -1,4 +1,6 @@
 import { withSentryConfig } from "@sentry/nextjs";
+import { withPlausibleProxy } from "next-plausible";
+
 // @ts-check
 
 /**
@@ -22,7 +24,10 @@ const config = {
     defaultLocale: "en",
   },
 };
-export default withSentryConfig(config, {
+
+const configWithPlausible = withPlausibleProxy()(config);
+
+const configWithSentryAndPlausible = withSentryConfig(configWithPlausible, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
@@ -59,3 +64,5 @@ export default withSentryConfig(config, {
   // https://vercel.com/docs/cron-jobs
   automaticVercelMonitors: true,
 });
+
+export default configWithSentryAndPlausible;

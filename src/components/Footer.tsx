@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 
 export function Footer() {
@@ -12,12 +13,9 @@ export function Footer() {
           Made with ❤️ by Stephan Schöpe
         </a>
         <span>|</span>
-        <a
-          href="https://www.stephanschoepe.de/impressum"
-          className="decoration-dotted hover:underline"
-        >
-          Impressum
-        </a>
+        <Link href="/imprint" className="decoration-dotted hover:underline">
+          Imprint & Privacy
+        </Link>
       </div>
     </footer>
   );
