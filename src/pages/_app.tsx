@@ -1,15 +1,21 @@
 import { type AppType } from "next/app";
-import { Analytics } from "@vercel/analytics/react";
+import PlausibleProvider from "next-plausible";
 
 import { api } from "@/utils/api";
 
 import "@/styles/globals.css";
+import { env } from "@/env.mjs";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <>
-      <Component {...pageProps} />
-      <Analytics />
+      <PlausibleProvider
+        domain="no-pressure.app"
+        selfHosted={true}
+        customDomain={env.NEXT_PUBLIC_PLAUSIBLE_URL}
+      >
+        <Component {...pageProps} />
+      </PlausibleProvider>
     </>
   );
 };

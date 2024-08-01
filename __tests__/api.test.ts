@@ -1,4 +1,3 @@
-import { env } from "@/env.mjs";
 interface Position {
   position: number;
   score?: string;
@@ -10,7 +9,7 @@ interface ErrorResponse {
 }
 
 const headers = {
-  Authorization: env.API_KEY,
+  // Authorization: env.API_KEY,
 };
 
 it("finds the correct number of event platforms", async () => {
