@@ -1,6 +1,8 @@
+import Layout from "@/components/layout";
+
 const Imprint = () => {
   return (
-    <>
+    <Layout>
       <div className="mt-1 max-w-2xl rounded-xl bg-white/10 p-4 text-white">
         <h2 className="mb-6 text-2xl font-bold">Imprint & Privacy</h2>
         <p className="mb-6">This website is operated by:</p>
@@ -144,7 +146,7 @@ const Imprint = () => {
           information as described in this Privacy Policy.
         </p>
       </div>
-    </>
+    </Layout>
   );
 };
 

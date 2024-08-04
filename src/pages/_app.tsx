@@ -5,7 +5,6 @@ import { api } from "@/utils/api";
 
 import "@/styles/globals.css";
 import { env } from "@/env.mjs";
-import Layout from "@/components/layout";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
@@ -15,9 +14,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         selfHosted={true}
         customDomain={env.NEXT_PUBLIC_PLAUSIBLE_URL}
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <Component {...pageProps} />
       </PlausibleProvider>
     </>
   );

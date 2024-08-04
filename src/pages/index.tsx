@@ -5,6 +5,7 @@ import FlyeventGroups from "@/components/FlyEventGroups";
 import CompcheckSelect from "@/components/CompcheckSelect";
 import PwcSelect from "@/components/PwcSelect";
 import HowToUse from "@/components/HowToUse";
+import Layout from "@/components/layout";
 
 const Home: NextPage = () => {
   const [selectedPlatform, setSelectedPlatform] = useState<number>();
@@ -33,13 +34,13 @@ const Home: NextPage = () => {
   };
 
   return (
-    <>
+    <Layout>
       <div className="mt-5 w-full max-w-2xl justify-center gap-3 md:flex">
-        <div className="mb-3 w-full rounded-xl bg-white/10 p-4 text-white  md:mb-0">
+        <div className="mb-3 w-full rounded-xl bg-white/10 p-4 text-white md:mb-0">
           <h3 className="text-lg font-semibold">Platform</h3>
           {/* Select Platform */}
           <select
-            className="select mt-2 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white px-2 text-left text-slate-600 shadow-sm  ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-secondary"
+            className="select mt-2 h-12 w-full items-center space-x-3 rounded-lg border border-gray-300 bg-white px-2 text-left text-slate-600 shadow-sm ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-secondary"
             onChange={handleSelectPlatform}
             defaultValue="DEFAULT"
           >
@@ -56,7 +57,7 @@ const Home: NextPage = () => {
         </div>
       </div>
       <HowToUse />
-    </>
+    </Layout>
   );
 };
 
