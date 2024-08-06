@@ -11,8 +11,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     <>
       <PlausibleProvider
         domain="no-pressure.app"
-        selfHosted={true}
-        customDomain={env.NEXT_PUBLIC_PLAUSIBLE_URL}
+        // selfHosted={true}
+        // customDomain={env.NEXT_PUBLIC_PLAUSIBLE_URL}
       >
         <Component {...pageProps} />
       </PlausibleProvider>
