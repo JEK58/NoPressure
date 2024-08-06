@@ -11,11 +11,7 @@ console.log("Plausible URL: " + env.NEXT_PUBLIC_PLAUSIBLE_URL);
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <>
-      <PlausibleProvider
-        domain="no-pressure.app"
-        selfHosted={true}
-        customDomain={env.NEXT_PUBLIC_PLAUSIBLE_URL}
-      >
+      <PlausibleProvider domain="no-pressure.app">
         <Component {...pageProps} />
       </PlausibleProvider>
     </>

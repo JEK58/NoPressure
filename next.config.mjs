@@ -1,5 +1,6 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import { withPlausibleProxy } from "next-plausible";
+import { env } from "./src/env.mjs";
 
 // @ts-check
 
@@ -25,7 +26,9 @@ const config = {
   },
 };
 
-const configWithPlausible = withPlausibleProxy()(config);
+const configWithPlausible = withPlausibleProxy({
+  customDomain: env.NEXT_PUBLIC_PLAUSIBLE_URL,
+})(config);
 
 const configWithSentryAndPlausible = withSentryConfig(configWithPlausible, {
   // For all available options, see:
