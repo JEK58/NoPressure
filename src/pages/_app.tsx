@@ -6,6 +6,8 @@ import { api } from "@/utils/api";
 import "@/styles/globals.css";
 import { env } from "@/env.mjs";
 
+console.log(env.NEXT_PUBLIC_PLAUSIBLE_URL);
+
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <>
