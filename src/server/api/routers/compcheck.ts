@@ -95,7 +95,7 @@ export const getPilotPosition = async (pilotId: string) => {
   if (!pilot) return noData;
   const position = pilot[1];
   if (!position) return noData;
-  const score = pilot[24];
+  const score = pilot[25];
 
   return { position, score };
 };
