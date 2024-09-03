@@ -78,7 +78,9 @@ export async function getPilotsFromGroupId(groupId: number) {
   const fmTime = await getFlymasterServerTime(groupId);
   const fmGroupUrl = `https://lb.flymaster.net/getlivedatam.php?grp=${groupId}&d=${fmTime}&plist=1`;
 
-  const res = await fetch(fmGroupUrl);
+  const res = await fetch(fmGroupUrl,      {headers: {
+        "user-agent": "Chrome",
+      }}); 
   if (!res) throw new Error("No pilot response from flymaster server");
 
   const body = (await res.json()) as FlymasterGroupResponse;
@@ -118,7 +120,9 @@ export const getFlymasterPosition = async (group: string, tracker: string) => {
     serverTime,
   )}/rnk${roundTimeToMinute(serverTime)}.json`;
 
-  const res = await fetch(url);
+  const res = await fetch(url,      {headers: {
+        "user-agent": "Chrome",
+      }}  );
   const data = (await res.json()) as FlymasterGroupResponse;
 
   return getPilotRanking(tracker, data);
