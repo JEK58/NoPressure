@@ -46,7 +46,12 @@ export interface Group {
 
 export const getFlymasterGroups = async () => {
   try {
-    const res = await fetch("https://lb.flymaster.net/bsBrowsableGroups.php");
+    const res = await fetch("https://lb.flymaster.net/bsBrowsableGroups.php", {
+      cache: "no-store",
+      headers: {
+        "user-agent": "Chrome",
+      },
+    });
     const body = (await res.json()) as FlymasterGroups;
 
     return body.groups ?? [];
