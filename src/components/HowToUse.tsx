@@ -2,6 +2,11 @@ const HowToUse = () => {
   return (
     <div className="mt-1 max-w-2xl rounded-xl bg-white/10 p-4 text-white">
       <p className="mb-3 text-gray-200">
+        <span className="font-semibold">⚠️</span> Flymaster doesn&apos;t
+        currently work. I&apos;m working on it.
+      </p>
+
+      <p className="mb-3 text-gray-200">
         <span className="font-semibold">🚀 New:</span> Using PWC in the dropdown
         will now show the live leading points instead of total score.
       </p>
