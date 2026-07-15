@@ -119,9 +119,12 @@ export const getFlymasterPosition = async (group: string, tracker: string) => {
 
   const serverTime = await getFlymasterServerTime(group);
 
-  const url = `https://lt.flymaster.net/json/GROUPS/${group}/${roundTimeToHour(
+  // Flymaster's live site now exposes the current ranking through `/scoring`.
+  // The older `json/GROUPS/.../rnk*.json` feed remains reachable but can return
+  // an empty `aaData` while the live rankings are present.
+  const url = `https://lt.flymaster.net/scoring/${group}/${roundTimeToMinute(
     serverTime,
-  )}/rnk${roundTimeToMinute(serverTime)}.json`;
+  )}`;
 
   const res = await fetch(url, {
     cache: "no-store",
@@ -134,10 +137,6 @@ export const getFlymasterPosition = async (group: string, tracker: string) => {
 
   return getPilotRanking(tracker, data);
 };
-
-function roundTimeToHour(serverTime: number): number {
-  return 3600 * Math.floor(serverTime / 3600);
-}
 
 function roundTimeToMinute(serverTime: number): number {
   return 60 * Math.floor(serverTime / 60);
