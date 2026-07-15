@@ -1,8 +1,6 @@
 import { type NextPage } from "next";
 import { useState } from "react";
 import FlymasterGroups from "@/components/FlymasterGroups";
-import FlyeventGroups from "@/components/FlyEventGroups";
-import CompcheckSelect from "@/components/CompcheckSelect";
 import PwcSelect from "@/components/PwcSelect";
 import HowToUse from "@/components/HowToUse";
 import Layout from "@/components/layout";
@@ -12,8 +10,6 @@ const Home: NextPage = () => {
 
   const platforms = [
     { name: "Flymaster", id: 1 },
-    { name: "Flyevent / SRS 2025", id: 4 },
-    // { name: "Flyevent / SRS", id: 2 },
     // { name: "PWC", id: 3 },
   ];
 
@@ -51,9 +47,7 @@ const Home: NextPage = () => {
           </select>
 
           {selectedPlatform === 1 && <FlymasterGroups />}
-          {selectedPlatform === 2 && <FlyeventGroups />}
           {selectedPlatform === 3 && <PwcSelect />}
-          {selectedPlatform === 4 && <CompcheckSelect />}
         </div>
       </div>
       <HowToUse />
