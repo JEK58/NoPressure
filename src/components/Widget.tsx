@@ -5,6 +5,7 @@ interface Props {
     position?: string | number;
     score?: string | number;
     leadingPoints?: string | number;
+    leadingPercentage?: string | number;
     percentage?: string | number;
   };
   isFetching?: boolean;
@@ -53,6 +54,9 @@ const Widget = (props: Props) => {
         <h2 className={h2Class}>
           LO: {props.data?.percentage}% ({props.data?.leadingPoints})
         </h2>
+      )}
+      {props.data?.leadingPercentage !== undefined && (
+        <h2 className={h2Class}>LO: {props.data.leadingPercentage}%</h2>
       )}
     </div>
   );
