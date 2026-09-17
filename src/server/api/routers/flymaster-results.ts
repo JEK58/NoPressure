@@ -25,7 +25,6 @@ export const flymasterResultsRouter = createTRPCRouter({
         .object({
           groupId: z.string().regex(/^\d+$/),
           pilotId: z.string().regex(/^\d+$/),
-          taskId: z.string().regex(/^\d+$/).optional(),
         })
         .optional(),
     )
@@ -33,7 +32,6 @@ export const flymasterResultsRouter = createTRPCRouter({
       getFlymasterResultsPosition(
         input?.groupId ?? FLYMASTER_RESULTS_TEST_GROUP_ID,
         input?.pilotId ?? FLYMASTER_RESULTS_TEST_PILOT_ID,
-        input?.taskId,
       ),
     ),
 });
@@ -133,15 +131,19 @@ export function getTaskPosition(
 export async function getFlymasterResultsPosition(
   groupId: string,
   pilotId: string,
-  taskId?: string,
 ): Promise<FlymasterResultsPosition> {
   try {
-    const selectedTaskId =
-      taskId ?? (await getLatestScoredTaskIdFromGroup(groupId));
-    if (!selectedTaskId) return noData;
+    const frontPage = await fetch(
+      `https://lt.flymaster.net/bsCompetitionFrontPage.php?idgroup=${groupId}`,
+      fetchOptions,
+    );
+    if (!frontPage.ok) return noData;
+
+    const taskId = getLatestScoredTaskId(await frontPage.text());
+    if (!taskId) return noData;
 
     const taskResults = await fetch(
-      `https://lt.flymaster.net/bsTaskResultsFiltered.php?idgroup=${groupId}&taskId=${selectedTaskId}`,
+      `https://lt.flymaster.net/bsTaskResultsFiltered.php?idgroup=${groupId}&taskId=${taskId}`,
       fetchOptions,
     );
     if (!taskResults.ok) return noData;
@@ -151,16 +153,6 @@ export async function getFlymasterResultsPosition(
     console.error("Unable to load Flymaster official results", error);
     return noData;
   }
-}
-
-async function getLatestScoredTaskIdFromGroup(groupId: string) {
-  const frontPage = await fetch(
-    `https://lt.flymaster.net/bsCompetitionFrontPage.php?idgroup=${groupId}`,
-    fetchOptions,
-  );
-  if (!frontPage.ok) return;
-
-  return getLatestScoredTaskId(await frontPage.text());
 }
 
 function parseScore(value: string): number | undefined {

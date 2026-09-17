@@ -6,21 +6,20 @@ export function FlymasterResultsTest() {
   const router = useRouter();
   const data = router.query.data;
 
-  const [groupId = "", pilotId = "", taskId] = Array.isArray(data) ? data : [];
+  const [groupId = "", pilotId = ""] = Array.isArray(data) ? data : [];
   const isValidGroupId = /^\d+$/.test(groupId);
   const isValidPilotId = /^\d+$/.test(pilotId);
-  const isValidTaskId = taskId === undefined || /^\d+$/.test(taskId);
   const isBlindmode = true;
 
   const position = api.flymasterResults.position.useQuery(
-    { groupId, pilotId, taskId },
+    { groupId, pilotId },
     {
       refetchInterval: 1000 * 60,
-      enabled: isValidGroupId && isValidPilotId && isValidTaskId,
+      enabled: isValidGroupId && isValidPilotId,
     },
   );
 
-  if (!isValidGroupId || !isValidPilotId || !isValidTaskId) return null;
+  if (!isValidGroupId || !isValidPilotId) return null;
 
   return (
     <Widget
