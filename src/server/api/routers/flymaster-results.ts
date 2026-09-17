@@ -23,14 +23,13 @@ export const flymasterResultsRouter = createTRPCRouter({
     .input(
       z
         .object({
-          groupId: z.string().regex(/^\d+$/),
           pilotId: z.string().regex(/^\d+$/),
         })
         .optional(),
     )
     .query(async ({ input }) =>
       getFlymasterResultsPosition(
-        input?.groupId ?? FLYMASTER_RESULTS_TEST_GROUP_ID,
+        FLYMASTER_RESULTS_TEST_GROUP_ID,
         input?.pilotId ?? FLYMASTER_RESULTS_TEST_PILOT_ID,
       ),
     ),
