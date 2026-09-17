@@ -1,6 +1,7 @@
 /** @jest-environment node */
 
 import {
+  getFlymasterResultsPosition,
   getLatestScoredTaskId,
   getTaskPosition,
 } from "@/server/api/routers/flymaster-results";
@@ -83,5 +84,30 @@ describe("Flymaster official results", () => {
     expect(getTaskPosition("<main>No results</main>", "666")).toEqual({
       position: "?",
     });
+  });
+
+  it("uses an explicitly supplied task ID without loading the competition front page", async () => {
+    const fetchMock = jest.fn().mockResolvedValue({
+      ok: true,
+      text: () =>
+        Promise.resolve(
+          taskTable(
+            `<tr class="fs_res_res_row"><td>2</td><td class="col-id">666</td><td>50</td></tr>`,
+          ),
+        ),
+    } as Response);
+    Object.defineProperty(global, "fetch", {
+      configurable: true,
+      value: fetchMock,
+    });
+
+    await expect(
+      getFlymasterResultsPosition("7977", "666", "1406"),
+    ).resolves.toEqual({ position: 2, leadingPercentage: 100 });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledWith(
+      "https://lt.flymaster.net/bsTaskResultsFiltered.php?idgroup=7977&taskId=1406",
+      expect.any(Object),
+    );
   });
 });
